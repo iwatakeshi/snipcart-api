@@ -5,18 +5,18 @@ import { CustomerAPI } from './customers';
 import { DiscountAPI } from './discounts';
 
 export type SnipcartOptions = {
-  endpoint: string;
-  apiKey: string;
-  timeout: number;
+  endpoint?: string;
+  apiKey?: string;
+  timeout?: number;
 };
 
-export class Snipcart {
-  private options: Partial<SnipcartOptions>;
+export default class Snipcart {
+  private options: SnipcartOptions;
   private readonly axios: AxiosInstance;
-  constructor(options: Partial<SnipcartOptions> = {}) {
+  constructor(options: SnipcartOptions = {}) {
     this.options = merge({}, Snipcart.defaultOptions(), options);
 
-    if (!this.options.apiKey) throw new Error('No API key provided.');
+    if (!this.options.apiKey) throw new Error('No Snipcart API key provided.');
 
     const btoa = (obj: string) => Buffer.from(obj).toString('base64');
 
@@ -47,11 +47,7 @@ export class Snipcart {
    */
   static defaultOptions = (): Partial<SnipcartOptions> => ({
     endpoint: process.env.SNIPCART_ENDPOINT || 'https://app.snipcart.com/api',
-    apiKey: process.env.SNIPCART_API_KEY,
+    apiKey: process.env.SNIPCART_API_KEY || process.env.SNIPCART_SECRET_KEY,
     timeout: 300 * 1000, // 5 minutes
   });
-}
-
-export default function snipcart(options: Partial<SnipcartOptions> = {}) {
-  return new Snipcart(options);
 }
