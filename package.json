@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "dist/src/index",
   "typings": "dist/index.d.ts",
@@ -20,7 +20,7 @@
     "analyze": "size-limit --why"
   },
   "peerDependencies": {},
-  "name": "snipcart-api",
+  "name": "@iwatakeshi/snipcart-api",
   "author": "Takeshi Iwana",
   "module": "dist/snipcart-api.esm.js",
   "size-limit": [
