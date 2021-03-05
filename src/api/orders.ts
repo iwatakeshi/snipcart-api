@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios';
+import APIReponse from '../types/api-response';
 import { OrderItem, OrderStatus, PaymentStatus } from '../types/orders';
 
 type FindQueryParams = {
@@ -42,13 +43,6 @@ type FindQueryParams = {
   isRecurringOrder: boolean;
 };
 
-type FindResponse = {
-  totalItems: number;
-  offset: number;
-  limit: number;
-  items: OrderItem[];
-};
-
 type FindOneQueryParms = {
   /**
    * The order unique token (guid)
@@ -90,7 +84,7 @@ export class OrderAPI {
    * @param params
    */
   find = (params: Partial<FindQueryParams> = { limit: 20, offset: 0 }) =>
-    this.axios.get<FindResponse>('orders', {
+    this.axios.get<APIReponse<OrderItem>>('orders', {
       params,
     });
   /**

@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios';
+import APIReponse from '../types/api-response';
 import { CustomerStatus, Customer } from '../types/customers';
 import { OrderItem } from '../types/orders';
 
@@ -34,13 +35,6 @@ type FindQueryParams = {
   name: string;
 };
 
-type FindResponse = {
-  totalItems: number;
-  offset: number;
-  limit: number;
-  items: Customer[];
-};
-
 export class CustomerAPI {
   constructor(private readonly axios: AxiosInstance) {}
   /**
@@ -48,7 +42,7 @@ export class CustomerAPI {
    * @param params
    */
   find = (params: Partial<FindQueryParams> = { limit: 20, offset: 0 }) =>
-    this.axios.get<FindResponse>('customers', { params });
+    this.axios.get<APIReponse<Customer>>('customers', { params });
 
   /**
    * This method returns a specific customer
